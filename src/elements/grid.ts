@@ -12,7 +12,10 @@ const COLORS = [
   'blue',
   'indigo',
   'violet',
-]
+  'grey',
+  'black',
+  'lightgrey',
+];
 
 @customElement('e-grid')
 export class EGrid extends LitElement {
@@ -30,7 +33,7 @@ export class EGrid extends LitElement {
 
   constructor() {
     super();
-    this.size = 30;
+    this.size = 5;
   }
 
   static get styles() {
