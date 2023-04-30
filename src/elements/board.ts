@@ -1,30 +1,33 @@
 import './grid';
+import './slider';
 
 import {LitElement, css} from 'lit';
 import {customElement, query} from 'lit/decorators.js';
 import {EGrid} from './grid';
+import {Slider} from './slider';
 import {html} from 'lit-html';
 
 @customElement('e-board')
 export class EBoard extends LitElement {
   @query('e-grid') grid!: EGrid;
+  @query('e-slider') slider!: Slider;
 
   static get styles() {
     return css`
-      input {
+      e-slider {
         width: 80vw;
       }
     `;
   }
 
   private onSizeChange(event: InputEvent) {
-    const value = Number((event.target as HTMLInputElement).value);
-    this.grid.size = value;
+    this.grid.size = this.slider.value;
   }
 
   override render() {
     return html`
-      <input type="range" min=1 max=30 value=10 step=1 @input=${this.onSizeChange}>
+      <e-slider min=1 max=30 value=10 @slider-input=${this.onSizeChange}>
+      </e-slider>
       <e-grid></e-grid>
     `;
   }

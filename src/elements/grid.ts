@@ -42,6 +42,7 @@ export class EGrid extends LitElement {
       display: block;
       column-count: var(--size, 8);
       column-gap: 0;
+      border: 1px solid black;
     }
     div {
       border: 1px solid black;

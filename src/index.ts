@@ -9,15 +9,9 @@ class EContainer extends LitElement {
   static get styles() {
     return css` 
       :host {
-        padding: 0px;
+        padding: 8px;
         display: flex;
         flex-wrap: wrap;
-      }
-      ul {
-        column-count: 4;
-        list-style-type: none;
-        margin: 8px;
-        padding-inline-start: 8px;
       }
     `;
   }
