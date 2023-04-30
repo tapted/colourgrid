@@ -1,5 +1,3 @@
-import './grid';
-
 import {LitElement, css} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 import {html} from 'lit-html';
@@ -37,7 +35,7 @@ export class Slider extends LitElement {
     }
     this.value = inputVal;
     this.dispatchEvent(new CustomEvent('slider-input',
-                                       {bubbles: true, composed: true}));
+        {bubbles: true, composed: true}));
   }
 
   override render() {

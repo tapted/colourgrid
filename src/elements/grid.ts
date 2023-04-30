@@ -3,7 +3,7 @@ import {customElement, property} from 'lit/decorators.js';
 import {html} from 'lit-html';
 import {styleMap} from 'lit-html/directives/style-map.js';
 
-const COLORS = [
+export const COLORS = [
   'white',
   'red',
   'orange',
