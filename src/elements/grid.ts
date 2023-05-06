@@ -18,6 +18,8 @@ export const COLORS: Array<[string, string]> = [
   ['cyan', 'black'],
   ['lightgreen', 'black'],
   ['darkgreen', 'white'],
+  ['darkred', 'white'],
+  ['#FFD580', 'black'],
 ];
 
 let debugElement: HTMLDivElement|null = null;

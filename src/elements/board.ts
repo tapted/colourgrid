@@ -25,7 +25,7 @@ export class EBoard extends LitElement {
         display: grid;
         min-width: 80%;
         max-width: 100%;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-template-columns: repeat(8, minmax(0, 1fr));
       }
       e-slider {
         width: 80vw;
