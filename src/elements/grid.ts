@@ -3,22 +3,24 @@ import {customElement, property} from 'lit/decorators.js';
 import {html} from 'lit-html';
 import {styleMap} from 'lit-html/directives/style-map.js';
 
-export const COLORS = [
-  'white',
-  'red',
-  'orange',
-  'yellow',
-  'green',
-  'blue',
-  'indigo',
-  'violet',
-  'grey',
-  'black',
-  'lightgrey',
+export const COLORS: Array<[string, string]> = [
+  ['white', 'black'],
+  ['red', 'black'],
+  ['orange', 'black'],
+  ['yellow', 'black'],
+  ['green', 'black'],
+  ['blue', 'black'],
+  ['indigo', 'white'],
+  ['violet', 'black'],
+  ['grey', 'black'],
+  ['black', 'white'],
+  ['lightgrey', 'black'],
+  ['cyan', 'black'],
 ];
 
 @customElement('e-grid')
 export class EGrid extends LitElement {
+  @property({attribute: false}) color = '';
   @property({attribute: false})
   get size(): number {
     return Number(this.style.getPropertyValue('--size')) || 8;
@@ -30,6 +32,8 @@ export class EGrid extends LitElement {
   }
 
   colors: number[] = [];
+
+  private lastMoveIndex = -1;
 
   constructor() {
     super();
@@ -43,6 +47,7 @@ export class EGrid extends LitElement {
       column-count: var(--size, 8);
       column-gap: 0;
       border: 1px solid black;
+      user-select: none;
     }
     div {
       border: 1px solid black;
@@ -53,20 +58,40 @@ export class EGrid extends LitElement {
     `;
   }
 
+  private getColorIndex(index: number): number {
+    const colorIndex = COLORS.findIndex(([c,]) => this.color == c);
+    if (colorIndex >= 0) {
+      return colorIndex;
+    }
+    return ((this.colors[index] ?? 0) + 1) % COLORS.length;
+  }
+
+  private onCellMove(event: PointerEvent, index: number) {
+    if (!event.isPrimary || index === this.lastMoveIndex) {
+      return;
+    }
+    if (event.pointerType === 'mouse' && event.buttons === 0) {
+      return;
+    }
+    this.lastMoveIndex = index;
+    this.onCellClick(index);
+  }
+
   private onCellClick(index: number) {
-    const value = ((this.colors[index] ?? 0) + 1) % COLORS.length;
-    this.colors[index] = value;
+    this.colors[index] = this.getColorIndex(index);
     this.requestUpdate();
   }
 
   private renderCell(index: number, colorIndex: number) {
     const style = {
-      backgroundColor: COLORS[colorIndex],
+      backgroundColor: COLORS[colorIndex][0],
     };
     return html`
       <div
+          @pointermove=${(e: PointerEvent) => this.onCellMove(e, index)}
           @click=${() => this.onCellClick(index)}
-          style=${styleMap(style)}></div>`;
+          style=${styleMap(style)}
+          draggable="false"></div>`;
   }
 
   override render() {

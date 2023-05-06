@@ -22,8 +22,10 @@ export class EBoard extends LitElement {
       }
       fieldset {
         border: none;
-        display: flex;
-        width: 90vw;
+        display: grid;
+        min-width: 80%;
+        max-width: 100%;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
       }
       e-slider {
         width: 80vw;
@@ -40,7 +42,7 @@ export class EBoard extends LitElement {
         display: inline-block;
         background: #ddd;
         border-radius: 1em;
-        border: 1px solid grey;
+        border: 1px solid #bbb;
         border-bottom: solid 4px #bbb;
         padding: 10px;
         margin-top: 0;
@@ -48,7 +50,8 @@ export class EBoard extends LitElement {
         cursor: pointer;
         font-family: sans-serif;
         text-overflow: ellipsis;
-        font-size: 12px;
+        font-size: 14px;
+        font-weight: 800;
         overflow: hidden;
         whitespace: nowrap;
         margin: 4px;
@@ -68,13 +71,21 @@ export class EBoard extends LitElement {
     this.grid.size = this.slider.value;
   }
 
-  private renderColorButton(color: string) {
+  private onColorChange(color: string) {
+    this.grid.color = color;
+  }
+
+  private renderColorButton(color: string, textColor = 'black') {
     const style = {
       backgroundColor: color,
+      color: textColor,
     };
     return html`
       <label class="e-button">
-        <input type="radio" name="color-button">
+        <input
+            @change=${() => this.onColorChange(color)}
+            type="radio"
+            name="color-button">
         <span class="button-label" style=${styleMap(style)}>
           ${color}
         </span>
@@ -86,7 +97,7 @@ export class EBoard extends LitElement {
       <e-slider min=1 max=30 value=10 @slider-input=${this.onSizeChange}>
       </e-slider>
       <fieldset>
-        ${COLORS.map((c) => this.renderColorButton(c))}
+        ${COLORS.map((c) => this.renderColorButton(...c))}
       </fieldset>
       <e-grid></e-grid>
     `;
