@@ -9,7 +9,7 @@ export const COLORS: Array<[string, string]> = [
   ['orange', 'black'],
   ['yellow', 'black'],
   ['green', 'white'],
-  ['blue', 'black'],
+  ['blue', 'yellow'],
   ['indigo', 'white'],
   ['violet', 'black'],
   ['grey', 'black'],

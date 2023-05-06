@@ -67,11 +67,11 @@
       "sizes": "512x512"
     }
   ],
-  "short_name": "Sight Words",
+  "short_name": "Grid",
   "theme_color": "#2196f3",
   "display": "standalone",
   "background_color": "#2196f3",
   "orientation": "portrait",
   "start_url": "index.html",
-  "id": "/index.html"
+  "id": "/colourgrid/index.html"
 }
