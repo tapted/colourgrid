@@ -3,7 +3,7 @@ import './slider';
 
 import {COLORS, EGrid} from './grid';
 import {LitElement, css} from 'lit';
-import {customElement, query} from 'lit/decorators.js';
+import {customElement, query, state} from 'lit/decorators.js';
 import {Slider} from './slider';
 import {html} from 'lit-html';
 import {styleMap} from 'lit-html/directives/style-map.js';
@@ -12,6 +12,7 @@ import {styleMap} from 'lit-html/directives/style-map.js';
 export class EBoard extends LitElement {
   @query('e-grid') grid!: EGrid;
   @query('e-slider') slider!: Slider;
+  @state() gridSize = 5;
 
   static get styles() {
     return css`
@@ -68,7 +69,7 @@ export class EBoard extends LitElement {
   }
 
   private onSizeChange(event: InputEvent) {
-    this.grid.size = this.slider.value;
+    this.gridSize = this.slider.value;
   }
 
   private onColorChange(color: string) {
@@ -94,12 +95,17 @@ export class EBoard extends LitElement {
 
   override render() {
     return html`
-      <e-slider min=1 max=30 value=10 @slider-input=${this.onSizeChange}>
+      <e-slider
+          min=1
+          max=30
+          value=${this.gridSize}
+          @slider-input=${this.onSizeChange}>
       </e-slider>
       <fieldset>
         ${COLORS.map((c) => this.renderColorButton(...c))}
       </fieldset>
-      <e-grid></e-grid>
+      <e-grid .size=${this.gridSize}>
+      </e-grid>
     `;
   }
 }

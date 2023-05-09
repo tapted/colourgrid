@@ -5,6 +5,7 @@ import {html} from 'lit-html';
 @customElement('e-slider')
 export class Slider extends LitElement {
   @query('#range-input', true) rangeInput!: HTMLInputElement;
+  @query('#text-input', true) textInput!: HTMLInputElement;
 
   @property({type: Number}) min = 1;
   @property({type: Number}) max = 30;
@@ -34,6 +35,8 @@ export class Slider extends LitElement {
       inputVal = this.max;
     }
     this.value = inputVal;
+    this.textInput.value = `${inputVal}`;
+    this.rangeInput.value = `${inputVal}`;
     this.dispatchEvent(new CustomEvent('slider-input',
         {bubbles: true, composed: true}));
   }
@@ -50,7 +53,7 @@ export class Slider extends LitElement {
           @input=${this.onInput}>
       <input
           id="text-input"
-          type="text"
+          type="number"
           value=${this.value}
           @input=${this.onInput}>       
     `;
